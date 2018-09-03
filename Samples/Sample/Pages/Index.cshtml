@@ -1,0 +1,29 @@
+﻿@page "/"
+
+<HorizontalSplitter Title="Main split">
+	<ContentProperty Name="Top">
+		This is top content
+	</ContentProperty>
+	<ContentProperty Name="Bottom">
+		This is bottom content
+		<div style="padding-left:20px">
+			<HorizontalSplitter Title="Bottom split">
+				<ContentProperty Name="Top">
+					This is top content in bottom part
+					<button onclick="@WriteLog">Write log</button>
+				</ContentProperty>
+				<ContentProperty Name="Bottom">
+					This is bottom content in bottom part
+				</ContentProperty>
+			</HorizontalSplitter>
+		</div>
+	</ContentProperty>
+</HorizontalSplitter>
+
+@functions
+{
+   void WriteLog()
+   {
+	   Console.WriteLine("Click handler works too!");
+   }
+}
