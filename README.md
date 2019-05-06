@@ -6,11 +6,12 @@ It's usefull for any who needs to have more ChildContent properties in a compone
 
 ### Usage
 1) See sample project - focus \Shared\HorizontalSplitter.cshtml and \Pages\Index.cshtml files.
-2) Create your component - like HorizontalSplitter. Don't forget to enter "@inherits ContentsBlazorComponent" into.
+2) Create your component - like HorizontalSplitter. Don't forget to enter "@inherits ContentsComponentBase" into.
 3) Use your component on a page.
 
 ### Notes
 - all is provided as is without any warranty.
-- tested with Blazor 0.5.1
+- developed with ASP.NET Core 3.0.0-preview4-19216-03.
+- see "v0.5.1" branch for version compatible with Blazor 0.5.1.
 
-### Thanks to Blazor team members for they work
+### Thanks to Blazor team members for their work

@@ -1,0 +1,18 @@
+﻿@inherits ContentsComponentBase
+
+<h1>@Title</h1>
+
+<div>@Top</div>
+<hr/>
+<div>@Bottom</div>
+
+@functions {
+   [Parameter]
+   string Title { get; set; }
+
+   [Parameter]
+   RenderFragment Top {get;set;}
+
+   [Parameter]
+   RenderFragment Bottom {get;set;}
+}
