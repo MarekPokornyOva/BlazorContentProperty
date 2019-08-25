@@ -11,7 +11,7 @@ It's usefull for any who needs to have more ChildContent properties in a compone
 
 ### Notes
 - all is provided as is without any warranty.
-- developed with ASP.NET Core 3.0.0-preview4-19216-03.
-- see "v0.5.1" branch for version compatible with Blazor 0.5.1.
+- developed with version 3.0.0-preview8.19405.7.
+- see other branches for versions compatible with previous Blazor releases.
 
 ### Thanks to Blazor team members for their work

@@ -1,6 +1,5 @@
 ﻿#region using
 using Microsoft.AspNetCore.Components.RenderTree;
-using Microsoft.AspNetCore.Components.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,13 +10,13 @@ namespace Microsoft.AspNetCore.Components
 {
 	public class ContentsComponentBase : ComponentBase
 	{
-        public override Task SetParametersAsync(ParameterCollection parameters)
-        {
-            ReplaceChildContent(ref parameters);
-            return base.SetParametersAsync(parameters);
-        }
+		public override Task SetParametersAsync(ParameterView parameters)
+		{
+			ReplaceChildContent(ref parameters);
+			return base.SetParametersAsync(parameters);
+		}
 
-		void ReplaceChildContent(ref ParameterCollection parameters)
+		void ReplaceChildContent(ref ParameterView parameters)
 		{
 			RenderTreeFrame[] frames = ParameterCollectionHelper.GetFrames(parameters);
 			int lastContentBlazorComponentPos = -1;
@@ -27,15 +26,14 @@ namespace Microsoft.AspNetCore.Components
 				if (frame.FrameType == RenderTreeFrameType.Component)
 					lastContentBlazorComponentPos = typeof(ContentsComponentBase).IsAssignableFrom(frame.ComponentType) ? pos : -1;
 				else if ((lastContentBlazorComponentPos != -1) //check we have right component type
-					&& (frame.FrameType == RenderTreeFrameType.Attribute) && (frame.AttributeName == RenderTreeBuilder.ChildContent)  //we have to replace ChildContent only...
+					&& (frame.FrameType == RenderTreeFrameType.Attribute) && (frame.AttributeName == RenderTreeBuilderHelper.ChildContent)  //we have to replace ChildContent only...
 					&& (frame.AttributeValue is RenderFragment childContent) //...of right (RenderFragment) type...
 					&& (pos > lastContentBlazorComponentPos) && (pos < lastContentBlazorComponentPos + frames[lastContentBlazorComponentPos].ComponentSubtreeLength)) //...and within the component scope
 				{
 					List<RenderTreeFrame> framesEdit = new List<RenderTreeFrame>(frames);
 
 					//setup new rendering for childContent
-					//there's possible issue with service provider used in renderer. I haven't found proper way to get right one.
-					RenderTreeBuilder rtb = new RenderTreeBuilder(NullRenderer.Instance);
+					RenderTreeBuilder rtb = new RenderTreeBuilder();
 					childContent(rtb);
 					RenderTreeFrame[] newFrames = ParseFragments(rtb, frames[pos].Sequence);
 
@@ -69,10 +67,10 @@ namespace Microsoft.AspNetCore.Components
 					if ((item1.FrameType == RenderTreeFrameType.Attribute) && (item1.AttributeName == "Name") && (item1.AttributeValue is string propertyName))
 					{
 						RenderTreeFrame item2 = frames.Array[a + 2];
-						if ((item2.FrameType == RenderTreeFrameType.Attribute) && (item2.AttributeName == RenderTreeBuilder.ChildContent) && (item2.AttributeValue is RenderFragment splitPartChildContent))
+						if ((item2.FrameType == RenderTreeFrameType.Attribute) && (item2.AttributeName == RenderTreeBuilderHelper.ChildContent) && (item2.AttributeValue is RenderFragment splitPartChildContent))
 							parms.Add(new Tuple<string, RenderFragment>(propertyName, splitPartChildContent));
 					}
-					a = a + 2;
+					a += 2;
 				}
 			}
 
@@ -86,41 +84,29 @@ namespace Microsoft.AspNetCore.Components
 			return result;
 		}
 
-		class NullRenderer : Renderer
+		static class RenderTreeBuilderHelper
 		{
-			public NullRenderer(IServiceProvider serviceProvider) : base(serviceProvider)
-			{ }
-
-            protected override Task UpdateDisplayAsync(in RenderBatch renderBatch)
-                => Task.CompletedTask;
-
-            protected override void HandleException(Exception exception)
-                => throw exception;
-
-            //internal static NullRenderer Instance { get; } = new NullRenderer(new BrowserServiceProvider());
-            internal static NullRenderer Instance { get; } = new NullRenderer(new NullServiceProvider());
-
-			class NullServiceProvider : IServiceProvider
+			internal readonly static string ChildContent;
+			internal const string ChildContentBackup = "ChildContent";
+			static RenderTreeBuilderHelper()
 			{
-				public object GetService(Type serviceType)
-				{
-					throw new InvalidOperationException("This is something not finished yet, sorry.");
-				}
+				FieldInfo fi = typeof(RenderTreeBuilder).GetField("ChildContent",BindingFlags.NonPublic|BindingFlags.Static);
+				ChildContent=(fi?.GetRawConstantValue() as string)??ChildContentBackup;
 			}
 		}
 
 		static class ParameterCollectionHelper
 		{
-			static FieldInfo _framesField = typeof(ParameterCollection).GetField("_frames", BindingFlags.NonPublic | BindingFlags.Instance);
+			static FieldInfo _framesField = typeof(ParameterView).GetField("_frames", BindingFlags.NonPublic | BindingFlags.Instance);
 
-			internal static RenderTreeFrame[] GetFrames(ParameterCollection parameters)
+			internal static RenderTreeFrame[] GetFrames(ParameterView parameters)
 				=> (RenderTreeFrame[])_framesField.GetValue(parameters);
 
-			internal static void SetFrames(ref ParameterCollection parameters, RenderTreeFrame[] frames)
+			internal static void SetFrames(ref ParameterView parameters, RenderTreeFrame[] frames)
 			{
 				object o = parameters;
 				_framesField.SetValue(o, frames);
-				parameters = (ParameterCollection)o;
+				parameters = (ParameterView)o;
 			}
 		}
 
@@ -150,18 +136,18 @@ namespace Microsoft.AspNetCore.Components
 	public class ContentProperty : ComponentBase
 	{
 		[Parameter]
-		string Name { get; set; } //this is not needed in runtime but looks better in razor view
+		public string Name { get; set; } //this is not needed in runtime but looks better in razor view
 
 		/*
 		All the component is handled ContentsBlazorComponent so following is not used
 
 		[Parameter]
-		RenderFragment ChildContent { get; set; }
+		public RenderFragment ChildContent { get; set; }
 
 		protected override void BuildRenderTree(RenderTreeBuilder builder)
 		{
 			base.BuildRenderTree(builder);
 			builder.AddContent(0, ChildContent);
 		}*/
-	}
+    }
 }
