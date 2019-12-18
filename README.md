@@ -11,7 +11,7 @@ It's usefull for any who needs to have more ChildContent properties in a compone
 
 ### Notes
 - all is provided as is without any warranty.
-- developed with version 3.0.0-preview8.19405.7.
+- developed with version 3.1.0-preview4.19579.2 wasm.
 - see other branches for versions compatible with previous Blazor releases.
 
 ### Thanks to Blazor team members for their work

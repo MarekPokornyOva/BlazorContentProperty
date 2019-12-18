@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IJSRuntime jsRuntime
 
 <HorizontalSplitter Title="Main split">
 	<ContentProperty Name="Top">
@@ -20,10 +21,11 @@
 	</ContentProperty>
 </HorizontalSplitter>
 
-@functions
+@code
 {
-   void WriteLog()
-   {
-	   Console.WriteLine("Click handler works too!");
-   }
+	void WriteLog()
+	{
+		Console.WriteLine("Click handler works too!");
+		jsRuntime.InvokeAsync<string>("alert", "Click handler works too! Look for evidence to Console's log.");
+	}
 }
