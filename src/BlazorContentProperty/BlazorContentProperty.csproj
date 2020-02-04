@@ -5,12 +5,11 @@
     <PackageTags>Blazor</PackageTags>
     <RepositoryUrl>https://github.com/MarekPokornyOva/BlazorContentProperty</RepositoryUrl>
     <PackageProjectUrl>https://github.com/MarekPokornyOva/BlazorContentProperty</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/MarekPokornyOva/Jellequin2/raw/master/VsExtension/JellequinVs2017.ProjectType/Jellequin.ico</PackageIconUrl>
     <Company>MpSoft</Company>
     <Authors>Marek Pokorný</Authors>
     <Product>BlazorContentProperty</Product>
     <Description>BlazorContentProperty is workaround for Blazor's unsupported Content properties. It's usefull for any who needs to have more ChildContent properties in a component (e.g. Splitter).</Description>
-    <Version>0.3.1.0-preview4.19579.2</Version>
+    <Version>0.3.2.0-preview1.20073.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,7 +17,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.1.0-preview4.19579.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.2.0-preview1.20073.1" />
   </ItemGroup>
 
 </Project>

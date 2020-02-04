@@ -140,7 +140,7 @@ namespace Microsoft.AspNetCore.Components
 		public string Name { get; set; } //this is not needed in runtime but looks better in razor view
 
 		/*
-		All the component is handled ContentsBlazorComponent so following is not used
+		All the component is handled by ContentsBlazorComponent so the following is not used
 
 		[Parameter]
 		public RenderFragment ChildContent { get; set; }

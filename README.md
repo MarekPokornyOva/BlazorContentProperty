@@ -1,5 +1,9 @@
 # BlazorContentProperty
 
+[![Package Version](https://img.shields.io/nuget/v/BlazorContentProperty.svg)](https://www.nuget.org/packages/BlazorContentProperty)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/BlazorContentProperty.svg)](https://www.nuget.org/packages/BlazorContentProperty)
+[![License](https://img.shields.io/github/license/MarekPokornyOva/BlazorContentProperty.svg)](https://github.com/MarekPokornyOva/BlazorContentProperty/blob/master/LICENSE)
+
 ### Description
 BlazorContentProperty is workaround for Blazor's unsupported Content properties.
 It's usefull for any who needs to have more ChildContent properties in a component (e.g. Splitter).
@@ -11,7 +15,7 @@ It's usefull for any who needs to have more ChildContent properties in a compone
 
 ### Notes
 - all is provided as is without any warranty.
-- developed with version 3.1.0-preview4.19579.2 wasm.
+- developed with version 3.2.0-preview1.20073.1 wasm.
 - see other branches for versions compatible with previous Blazor releases.
 
 ### Thanks to Blazor team members for their work
