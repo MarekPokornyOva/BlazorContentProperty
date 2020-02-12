@@ -1,7 +1,7 @@
 # BlazorContentProperty
 
-[![Package Version](https://img.shields.io/nuget/v/BlazorContentProperty.svg)](https://www.nuget.org/packages/BlazorContentProperty)
-[![NuGet Downloads](https://img.shields.io/nuget/dt/BlazorContentProperty.svg)](https://www.nuget.org/packages/BlazorContentProperty)
+## The project is discontinued as Blazor supports more children RenderFragment properties out-of-the-box.
+
 [![License](https://img.shields.io/github/license/MarekPokornyOva/BlazorContentProperty.svg)](https://github.com/MarekPokornyOva/BlazorContentProperty/blob/master/LICENSE)
 
 ### Description
